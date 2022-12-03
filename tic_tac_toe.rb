@@ -1,6 +1,6 @@
 class Game
   def initialize
-    new_board
+    play
   end
 
   def new_board
@@ -8,19 +8,32 @@ class Game
   end
 
   def play
-    @GAMEINPLAY = 1
-    @WINNER = 0
-    while @GAMEINPLAY
+    @GAMEINPLAY = true
+    @WINNER = false
+    while @GAMEINPLAY == true 
       new_board
-      until @WINNER
+      until @WINNER do
+        clear
+        draw_board
         # get player move
+        clear
+        draw_board
         # check winner
-        # return if winner
+            # return if winner
+            @WINNER = true
         # switch player
       end
       # would you like to play a new game
       # get answer
+        # if yes return
+        # if no
+            @GAMEINPLAY = false
+
     end
+  end
+
+  def clear
+    system("clear")
   end
 
   def draw_board
@@ -51,6 +64,4 @@ class Game
   end
 end
 
-testGame = Game.new
-testGame.update_square('a', 0, 'X')
-testGame.draw_board
+test_game = Game.new
