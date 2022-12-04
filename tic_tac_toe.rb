@@ -9,7 +9,7 @@ class Game
     @p1_symbol = 'X'
     @p2_symbol = '0'
     @current_symbol = @p1_symbol
-    @board_size = 4
+    @board_size = 3
     play
   end
 
@@ -30,16 +30,16 @@ class Game
         get_player_move(@current_symbol)
         clear
         draw_board
-        if @turn >= 9
-          puts "DRAW!"
-          @WINNER = true
-          break
-        end
         if @turn >= 5
           @WINNER = check_winner?
         end
         if @WINNER
           puts "#{@current_symbol} IS THE WINNER"
+          break
+        end
+        if @turn >= 9 && !@WINNER 
+          puts "DRAW!"
+          @WINNER = true
           break
         end
         
@@ -56,10 +56,6 @@ class Game
 
   def check_winner?
     last_player = @current_symbol
-    if @turn >= 9
-      puts "DRAW"
-      return true
-    end
     if @turn < 5
       return false
     end
@@ -103,7 +99,7 @@ class Game
 
   def draw_board
     puts "'#{@current_symbol}' Turn"
-    puts '  | 0 | 1 | 2 |'
+    puts '  | 1 | 2 | 3 |'
     puts "a | #{@board[0][0]} | #{@board[0][1]} | #{@board[0][2]} |"
     puts "b | #{@board[1][0]} | #{@board[1][1]} | #{@board[1][2]} |"
     puts "c | #{@board[2][0]} | #{@board[2][1]} | #{@board[2][2]} |"
@@ -133,16 +129,16 @@ class Game
       if selection.empty?
         clear
         draw_board()
-        puts "Please enter a row and column like 'A0'"
+        puts "Please enter a row and column like 'B2'"
         raise
       end
         row_down = selection[0].downcase
-        column_int = selection[1].to_i
+        column_int = selection[1].to_i - 1
         
       if !input_valid?(row_down, column_int)
         clear
         draw_board()
-        puts 'Please make sure that the column starts with a, b, or c and the column is between 0 and 2 like "A1"'
+        puts 'Please make sure that the column starts with a, b, or c and the column is between 1 and 3 ex... "A1"'
         raise
       end
 
